@@ -1,0 +1,46 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    // Function to convert time to 24-hour format
+    public static String timeConversion(String s) {
+        // Extract the period (AM/PM)
+        String period = s.substring(8, 10);
+        // Extract the hour, minute, and second from the input string
+        int hour = Integer.parseInt(s.substring(0, 2));
+        String minuteSecond = s.substring(2, 8);
+        
+        // Convert based on AM/PM
+        if (period.equals("AM")) {
+            if (hour == 12) {
+                hour = 0; // 12 AM should be 00 in 24-hour format
+            }
+        } else if (period.equals("PM")) {
+            if (hour != 12) {
+                hour += 12; // Convert PM time to 24-hour format (except for 12 PM)
+            }
+        }
+        
+        // Format hour to two digits (if necessary), and return the result
+        return String.format("%02d%s", hour, minuteSecond);
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        String time = sc.nextLine(); // Read input time
+        System.out.println(timeConversion(time)); // Output the converted time
+    }
+}
