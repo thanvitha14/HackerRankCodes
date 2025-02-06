@@ -1,0 +1,58 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+import java.util.*;
+
+public class Solution {
+
+    public static int[] breakingRecords(int[] scores) {
+        int maxCount = 0;
+        int minCount = 0;
+        int maxScore = scores[0];
+        int minScore = scores[0];
+        
+        for (int i = 1; i < scores.length; i++) {
+            if (scores[i] > maxScore) {
+                maxScore = scores[i];
+                maxCount++; // Record breaking maximum score
+            }
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                minCount++; // Record breaking minimum score
+            }
+        }
+        
+        return new int[]{maxCount, minCount};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read the number of games (not needed for the logic directly)
+        int n = sc.nextInt();
+        sc.nextLine();  // consume the newline after the number of games
+        
+        // Read the scores as an array
+        String[] scoreStrings = sc.nextLine().split(" ");
+        int[] scores = new int[n];
+        for (int i = 0; i < n; i++) {
+            scores[i] = Integer.parseInt(scoreStrings[i]);
+        }
+        
+        // Get the results for record-breaking scores
+        int[] result = breakingRecords(scores);
+        
+        // Print the result (most breaks, least breaks)
+        System.out.println(result[0] + " " + result[1]);
+    }
+}
+
